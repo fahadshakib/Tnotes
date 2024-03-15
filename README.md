@@ -11,3 +11,5 @@
 - ##### create a note with text and image
 - ##### edit a note
 - ##### delete a note
+
+[watch the site here](https://main--phenomenal-rugelach-53fbc0.netlify.app/)
