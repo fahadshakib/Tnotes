@@ -1,7 +1,7 @@
 import './search-box.styles.scss';
 
 
-const SearchBox = () => {
+const SearchBox = ({handleChange}) => {
 
 
     return (
@@ -10,7 +10,8 @@ const SearchBox = () => {
             name="note" 
             id="note" 
             className='search-box' 
-            placeholder='search notes here'/>
+            placeholder='search notes here' 
+            onChange={handleChange}/>
     )
 }
 

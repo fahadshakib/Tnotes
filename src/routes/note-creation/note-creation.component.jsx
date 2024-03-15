@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import './note-creation.styles.scss';
 import createNoteInFirestore from '../../utilities/create-note.utilities';
 import uploadPhoto from '../../utilities/upload-photo.utilities';
 import { useUserContext } from "../../contexts/user.context";
+import Message from '../../components/message/message.component';
 import IconArrow from '../../assets/image/right-arrow.svg';
 
 
@@ -11,6 +12,10 @@ const CreateNoteForm = () => {
 
     const navigate = useNavigate();
     const {uid ,forceRefresh} = useUserContext();
+    const [warning , setWarning] = useState('');
+    const [hideWarning , setHideWarning] = useState(true);
+    const [success , setSuccess] = useState('');
+    const [hideSuccess , setHideSuccess] = useState(true);
 
     const [formData , setFormData] = useState({
         title : '',
@@ -20,6 +25,13 @@ const CreateNoteForm = () => {
     const {title, description} = formData;
     
 
+
+    const generateDate = () => {
+
+        const currentDate = new Date().toString().split(' ');
+        return currentDate.slice(1,5).join(' ') + ' ' + currentDate.slice(6,currentDate.length).join(' ').split('(')[1].split(')')[0];
+
+    }
 
     const handleChange = (event) => {
 
@@ -48,43 +60,70 @@ const CreateNoteForm = () => {
 
             try{
 
+                let url = null;
                 const {photo} = formData;
+                if(photo) url = await uploadPhoto(photo , title)
 
-                if(photo){
-
-                    const url = await uploadPhoto(photo , title);
-                    const newNote = {
-                        title,
-                        description,
-                        photo: url,
-                        createdAt: new Date().toString()
-                    }
-                    await createNoteInFirestore(uid , newNote);
-                    navigate('/');
-                    forceRefresh();
-
-                } else {
-
-                    const newNote = {
-                        title,
-                        description,
-                        photo: null,
-                        createdAt: new Date().toString()
-                    }
-                    await createNoteInFirestore(uid , newNote);
-                    navigate('/');
-                    forceRefresh();
+                const noteData = {
+                    title: title.trim(),
+                    description: description.trim(),
+                    photo: url,
+                    createdAt: generateDate()
                 }
+                await createNoteInFirestore(uid , noteData);
+                setSuccess('🎉 note added successfully');
+                setTimeout(()=> {
+                    navigate('/');
+                    forceRefresh();
+                }, 4100)
                 
-            } catch(err){alert(err.message)}
+                
+            } catch(err){setWarning(`😢 ${err.message}`)}
         }
 
         
+    useEffect(() => {
+
+        if (success) {
+
+            setHideSuccess(false);
+
+            const timeout = setTimeout(() => {
+
+                setHideSuccess(true);
+                setSuccess(''); 
+
+            }, 4000);
+            
+            return () => clearTimeout(timeout);
+        }
+
+    }, [success]);
+
+    useEffect(() => {
+
+        if (warning) {
+
+            setHideWarning(false);
+
+            const timeout = setTimeout(() => {
+
+                setHideWarning(true);
+                setWarning('');
+
+            }, 2400);
+
+            return () => clearTimeout(timeout);
+        }
+
+    }, [warning]);
+
 
     return (
 
-        <form className="form" onSubmit={handleNoteUpload}>
+        <>
 
+        <form className="form" onSubmit={handleNoteUpload}>
 
             <div className="form__field">
                 <label className="form__field--label">
@@ -128,6 +167,11 @@ const CreateNoteForm = () => {
             </button>
 
         </form>
+
+        {!hideSuccess  && <Message  msg={success} type='success'/>}
+        {!hideWarning  && <Message  msg={warning} type='error'/>}
+
+        </>
     );
 }
 

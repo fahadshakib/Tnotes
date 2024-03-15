@@ -12,11 +12,15 @@
     margin: .58rem;
     padding: .48rem ;
     background:#ffffff;
-    outline: none;
     border-radius: 1rem;
-    border: 1.4px solid #124444;
+    border: 1.8px solid #aac5c5;
     transition: all 0.2s ease-in;
 
+    &:focus{
+
+        outline: none;
+        border: 1.48px solid #165353;
+    }
 
     @media (max-width:360px){
         width: 80%;

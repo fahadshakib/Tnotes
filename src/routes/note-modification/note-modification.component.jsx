@@ -5,6 +5,7 @@ import { useUserContext } from "../../contexts/user.context";
 import getNoteFromFirestore from '../../utilities/get-note-item.utilities';
 import uploadPhoto from '../../utilities/upload-photo.utilities';
 import updateNoteInDatabase from '../../utilities/update-note.utilities';
+import Message from '../../components/message/message.component';
 import IconArrow from '../../assets/image/right-arrow.svg';
 
 
@@ -13,6 +14,10 @@ const EditNoteForm = () => {
     const navigate = useNavigate();
     const {id : noteID} = useParams();
     const {uid ,forceRefresh} = useUserContext();
+    const [warning , setWarning] = useState('');
+    const [hideWarning , setHideWarning] = useState(true);
+    const [success , setSuccess] = useState('');
+    const [hideSuccess , setHideSuccess] = useState(true);
 
     let noteTitle = '', noteDescription = '', noteImage = null;
 
@@ -78,19 +83,57 @@ const EditNoteForm = () => {
                 
                 const noteData = {title, description, photo:url}
                 await updateNoteInDatabase(noteID , noteData);
-                navigate('/');
-                forceRefresh();
+                setSuccess('🎉🎉 note update completed');
+                setTimeout(()=> {
+                    navigate('/');
+                    forceRefresh();
+                }, 4100)
                 
                 
-            } catch(err){alert(err.message)}
+            }  catch(err){setWarning(`😢 ${err.message}`)}
     }
 
-        
+    useEffect(() => {
+
+        if (success) {
+
+            setHideSuccess(false);
+
+            const timeout = setTimeout(() => {
+
+                setHideSuccess(true);
+                setSuccess(''); 
+
+            }, 4000);
+            
+            return () => clearTimeout(timeout);
+        }
+
+    }, [success]);
+
+    useEffect(() => {
+
+        if (warning) {
+
+            setHideWarning(false);
+
+            const timeout = setTimeout(() => {
+
+                setHideWarning(true);
+                setWarning('');
+
+            }, 2400);
+
+            return () => clearTimeout(timeout);
+        }
+
+    }, [warning]);       
 
     return (
 
-        <form className="form" onSubmit={handleNoteUpdate}>
+        <>
 
+        <form className="form" onSubmit={handleNoteUpdate}>
 
             <div className="form__field">
                 <label className="form__field--label">
@@ -134,6 +177,11 @@ const EditNoteForm = () => {
             </button>
 
         </form>
+
+        {!hideSuccess  && <Message  msg={success} type='success'/>}
+        {!hideWarning  && <Message  msg={warning} type='error'/>}
+    </>
+
     );
 }
 

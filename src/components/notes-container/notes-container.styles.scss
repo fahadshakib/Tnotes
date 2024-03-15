@@ -7,13 +7,14 @@
 
     display: grid;
     grid-template-columns: repeat(3 , 1fr);
+    gap: 1rem;
 
-    @media (max-width: 748px){
+    @media (max-width: 988px){
         width: 100%;
         grid-template-columns: repeat(2 , 1fr);
     }
 
-    @media (max-width: 410px){
+    @media (max-width: 510px){
         grid-template-columns: 1fr;
     }
 }
