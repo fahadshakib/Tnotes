@@ -1,0 +1,27 @@
+.button-create{
+
+    position: fixed;
+    top: 9rem;
+    right: 1rem;
+
+    width: 11rem;
+    height: 3rem;
+    padding: .4rem;
+    border: 1.8px dotted #0c2c2e;
+    background:#ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    z-index: 100;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--icon{
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+    }
+    
+}

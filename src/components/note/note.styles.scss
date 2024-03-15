@@ -1,0 +1,76 @@
+.note{
+
+    position: relative;
+    box-shadow: 0 .28rem .28rem #e9e9e9;
+    padding: .8rem;
+    padding-bottom: 2rem;
+    margin: 2rem;
+    word-wrap: break-word;
+    max-width: 34rem;
+
+    @media (max-width: 410px){
+        min-width: 100%;
+        margin: 1rem auto;
+    }
+
+
+    &--title{
+       
+        font-family: "Lobster", sans-serif;
+        font-size: 1.58rem;
+        font-weight: 300;
+        letter-spacing: .18rem;
+        word-spacing: .48rem;
+        color: #0d2020;
+        margin-top: 4rem;
+        margin-bottom: 1.4rem;
+        text-transform: lowercase;
+    }
+
+    &--date{
+        font-size: 1rem;
+        font-weight: 500;
+        color: #6e0000;
+        margin: 1.5rem 0;
+        opacity: .8;
+    }
+    &--image{
+
+        width: 100%;
+        height: 14rem;
+        object-fit: cover;
+        margin-top: 1rem;
+    }
+
+    &--description{
+        font-family: "Lobster", sans-serif;
+        margin-top: 1.8rem;
+        font-size: 1.2rem;
+        font-weight: 400;
+        letter-spacing: .18rem;
+        word-spacing: .48rem;
+        text-transform: lowercase;
+        color: #0b171d;
+        opacity: .8;
+    }
+
+    &__icons{
+        position: absolute;
+        top: .4rem;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 6.4rem;
+        height: 3.1rem;
+        padding: .4rem;
+
+    }
+    &--icon{
+
+        width: 1.8rem;
+        height: 1.8rem;
+        margin: .4rem;
+        cursor: pointer;
+    }
+}

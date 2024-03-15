@@ -1,0 +1,49 @@
+.route-error{
+
+    position: relative;
+    top: 0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    padding: 1rem;
+    background: #fcfdfd;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--image{
+
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+    }
+
+    &__button{
+
+        position: fixed;
+        top: 3rem;
+        right: 1.4rem;
+    
+        width: 14rem;
+        height: 3rem;
+        padding: .4rem;
+        border: 1.9px dotted #0c2c2e;
+        background:#ffffff;
+        font-family: "Lobster", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 400;
+        letter-spacing: .14rem;
+        z-index: 100;
+        cursor: pointer;
+    
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    
+        img{
+            width: 1.8rem;
+            height: 1.8rem;
+        }
+    }
+}

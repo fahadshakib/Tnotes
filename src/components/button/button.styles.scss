@@ -1,0 +1,25 @@
+.button{
+
+    width: 13rem;
+    min-height: 2.4rem;
+    border: 1.8px solid #287e8a;
+    padding: .4rem;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    &--image{
+        width: 2rem;
+        height: 2rem;
+    }
+
+    &--text{
+
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #040e16;
+        letter-spacing: .1rem;
+    }
+}

@@ -1,0 +1,33 @@
+
+.search-box{
+
+    display: inline-block;
+    position: absolute;
+    top: 18rem;
+    left: 50%;
+    transform: translate(-50%);
+
+    width:30rem;
+    height: 3rem;
+    margin: .58rem;
+    padding: .48rem ;
+    background:#ffffff;
+    outline: none;
+    border-radius: 1rem;
+    border: 1.4px solid #124444;
+    transition: all 0.2s ease-in;
+
+
+    @media (max-width:360px){
+        width: 80%;
+    }
+
+    &::placeholder{
+
+        text-transform: lowercase;
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: .1rem;
+    }
+    
+}
